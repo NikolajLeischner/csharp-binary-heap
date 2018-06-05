@@ -1,17 +1,15 @@
 This is a priority queue intended to be used within path-finding algorithms. I created it for a Unity-based RTS game where Unity's builtin navigation did not fit my needs.
 
-For a binary heap implementation this should be about as efficient as it gets. For queues not larger than approximately 2^15 - 2^16 elements it is too my knowledge still the fastest algorithm for this use case.
+For queues not larger than approximately 2^15 - 2^16 elements an optimised binary heap is still at least as fast as more complex priority queue data structures. In the context of path-finding in a video game, should this priority queue show up as a performance bottleneck, the most promosing optimisations would be:
 
-In the context of path-finding in a video game, should this priority queue show up as a performance bottleneck, the most promosing optimisations would be:
-
-* Prune your graph.
-* Optimise the number of path queries.
+* prune your graph,
+* reduce the number of path queries.
 
 # Implementing Dijkstra or A* without decreaseKey
 
-Textbooks often show SPATH algorithms based upon a priority queue which also allows decreasing the key of priority queue elements. 
+Textbooks often show SPATH algorithms based upon a priority queue which also allows decreasing the key of the queue's entries. 
 
-* You can use a hash set that stores visited node indices for this. If your graph is not too big, and nodes are identified by an int id in the range from 0 to N (as they should), you can also just use an array of bools.
+* You can use a hash set that stores visited node indices for this. If your graph is not too big, and nodes are identified by an integer id in the range from 0 to N (as they should), you can also just use an array of bools.
 * After dequeueing a node, check if it has already been visited. If yes, then skip it and dequeue the next node. If no, perform the next step of the algorithm, and mark the node as visited.
 
 # Acknowledgement
